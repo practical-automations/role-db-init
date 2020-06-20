@@ -1,2 +1,23 @@
 ---
 # tasks file for role-db-init
+- name: set lang UTF8 in /etc/my.cnf.d/mariadb-server.cnf
+  ini_file:
+    path: /etc/my.cnf.d/mariadb-server.cnf
+    section: mariadb
+    option: character-set-server
+    value: utf8mb4
+    backup: no
+
+- name: set lang UTF8 in /etc/my.cnf.d/mariadb-server.cnf
+  ini_file:
+    path: /etc/my.cnf.d/mariadb-server.cnf
+    section: client-mariadb
+    option: default-character-set
+    value: utf8mb4
+    backup: no
+
+- name: restart mariadb
+  systemd:
+    name: mariadb
+    state: restarted
+    enabled: yes
